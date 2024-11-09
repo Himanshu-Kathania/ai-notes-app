@@ -13,14 +13,14 @@ export const createUser = mutation({
       .filter((q) => q.eq(q.field("email"), args.email))
       .collect();
 
-    if (user?.length == 0) {
+    if (user.length === 0) {
       await ctx.db.insert("users", {
         email: args.email,
         userName: args.userName,
         imageUrl: args.imageUrl,
       });
-      return "Inserted new user...";
+      return { message: "Inserted new user..." };
     }
-    return "User already exists...";
+    return { message: "User already exists..." };
   },
 });

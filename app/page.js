@@ -14,19 +14,17 @@ const Home = () => {
   console.log({ user });
   const createUser = useMutation(api.user.createUser);
 
-  useEffect(() => {
-    const CheckUser = async () => {
-      const result = await createUser({
-        email: user?.primaryEmailAddress?.emailAddress,
-        userName: user?.fullName,
-        imageUrl: user?.profileImageUrl,
-      });
-      console.log({ result });
-    };
+  const CheckUser = async () => {
+    const result = await createUser({
+      email: user?.primaryEmailAddress?.emailAddress,
+      userName: user?.fullName,
+      imageUrl: user?.imageUrl,
+    });
+    console.log({ result });
+  };
 
-    if (user) {
-      CheckUser();
-    }
+  useEffect(() => {
+    user && CheckUser();
   }, [createUser, user]);
 
   return (
